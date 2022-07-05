@@ -36,28 +36,27 @@
         <div class="card-body">
         <div class="col-md-12">
  <h1>
- Daftar Mahasiswa
+ Daftar Dosen
  </h1>
  
  <table border="1" width="100%">
  <thead>
  <tr>
- <th>No</th><th>NIM</th><th>Nama</th><th>Gender</th>
-<th>IPK</th><th>Predikat</th>
+ <th>No</th><th>nidn</th><th>Nama</th><th>Gender</th>
+<th>Pendidikan</th>
  </tr>
  </thead>
  <tbody>
  <?php
  $nomor=1;
- foreach($list_mahasiswa as $mhs){
+ foreach($list_dsn as $dsn){
  ?>
  <tr>
  <td><?=$nomor?></td>
- <td><?=$mhs->nim?></td>
- <td><?=$mhs->nama?></td>
- <td><?=$mhs->gender?></td>
-<td><?=$mhs->ipk?></td>
-<td><?=$mhs->predikat()?></td>
+ <td><?=$dsn->nidn?></td>
+ <td><?=$dsn->nama?></td>
+ <td><?=$dsn->gender?></td>
+ <td><?=$dsn->pendidikan?></td>
  </tr>
  <?php
  $nomor++;
@@ -66,9 +65,8 @@
  </tbody>
  </table>
 </br>
-<a class="btn btn-primary" href="<?php echo base_url('index.php/mahasiswa/create')?>" role="button">create</a>
-</div>
-        <!-- /.card-body -->
+        </div>
+        <a class="btn btn-primary" href="<?php echo base_url('index.php/dosen/create')?>" role="button">create</a>
         <div class="card-footer">
           Footer
         </div>

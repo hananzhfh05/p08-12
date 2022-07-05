@@ -7,7 +7,7 @@ class dashboard extends CI_Controller {
 	{
         $this->load->view('layout/header');
         $this->load->view('layout/sidebar');
-        $this->load->view('dashboard/index');
+        $this->load->view('login/index');
         $this->load->view('layout/footer');
 	}
 }

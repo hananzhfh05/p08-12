@@ -1,37 +1,41 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-
-class Login extends CI_Controller {
+class Login extends CI_Controller{
     public function index(){
-        $data = [];
-        $this->load->view('login',$data);
-        
+        $this->load->view('layout/header');
+        $this->load->view('login/index');
+        $this->load->view('layout/footer');
     }
+    public function auth(){
+        // mengambil data yang telah di input di form login
+        $username = $this->input->post('username');
+        $password = $this->input->post('password');
 
-    public function otentikasi(){
-        $this->load->model("user_model","user");
-        $_username = $this->input->post('username'); 
-        $_password = $this->input->post('password');
+        // cek user login apakah sudah benar, jika benar arahkan ke halaman mahasiswa, jika salah kembali ke login
+        if ($username == 'admin' && $password =='12345') {
+            $userdata = [
+                "username" => $username,
+                "logged_in" => TRUE,
 
-        $row = $this->user->login($_username,$_password);
-        if(isset($row)){// jika user terdaftar di database
-            $this->session->set_userdata('USERNAME',$row->username);
-            $this->session->set_userdata('ROLE',$row->role);
-            $this->session->set_userdata('USER',$row);
-            
-            redirect(base_url().'index.php/mahasiswa');
-        }else{// jika user tidak (username password salah)
-            redirect(base_url().'index.php/login?status=f'); 
+            ];
+            $this->session->set_userdata($userdata);
+            redirect('/mahasiswa');
+            redirect('/dosen');
+            redirect('/matakuliah');
+        } elseif ($username == 'mahasiswa' && $password =='mahasiswa') {
+            $userdata = [
+                "username" => $username,
+
+            ];
+            $this->session->set_userdata($userdata);
+            redirect('/matakuliah');
+        } 
+        else {
+            redirect('/login');
         }
-
     }
-
     public function logout(){
-        $this->session->unset_userdata('USERNAME');
-        $this->session->unset_userdata('ROLE');
-        $this->session->unset_userdata('USER');
-        redirect(base_url().'index.php/login'); 
+        $this->session->sess_destroy();
+        redirect('/login');
     }
-
-
 }
+?>
